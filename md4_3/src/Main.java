@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class Main {
     public static void main(String[] args) {
         OrdersManager ordersManager = new OrdersManager();
@@ -16,8 +17,7 @@ public class Main {
     }
 }
 
-
-public class OrdersManager {
+class OrdersManager {
     HashMap<String, ArrayList<Double>> customersOrders;
 
     public OrdersManager() {
@@ -79,16 +79,15 @@ public class OrdersManager {
         double maxOrder = 0;
         String customerName = "";
 
+        // допишите логику работы метода
         for (String name : customersOrders.keySet()){
-            for (ArrayList<Double> order : customersOrders.values()){
-                double sum = 0;
-                for (int i = 0; i < order.size(); i++) {
-                    sum += order.get(i);
-                }
-                if (sum > maxOrder){
-                    maxOrder = sum;
-                    customerName = name;
-                }
+            double value = 0;
+            for (Double order : customersOrders.get(name)){
+                value += order;
+            }
+            if (value > maxOrder) {
+                maxOrder = value;
+                customerName = name;
             }
 
         }
@@ -100,26 +99,25 @@ public class OrdersManager {
         ArrayList<String> names = new ArrayList<>(); // создайте список клиентов с заказами меньше 5000
 
         // наполните список names
-        for (String name : customersOrders.keySet()){
+        for (String name : customersOrders.keySet()) {
             names.add(name);
         }
 
-        double ordersSum = 0;
-        for (ArrayList<Double> value : customersOrders.values()) {
-            for (Double order : value){
+
+        for (String name : names) {   // удалите из хеш-таблицы тех, чьи расходы строго меньше 5000
+            double ordersSum = 0;
+            for (Double order : customersOrders.get(name)) {
                 ordersSum += order;
             }
 
             if (ordersSum < 5000) {
-                ...
-            }
-            }
-
-    }
-
-        for ... // удалите из хеш-таблицы тех, чьи расходы строго меньше 5000
+                customersOrders.remove(name);
 
                 System.out.println("Клиента " + name + " больше нет в таблице.");
-}
-    }
             }
+        }
+    }
+}
+
+
+
